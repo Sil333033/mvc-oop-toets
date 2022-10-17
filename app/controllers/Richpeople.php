@@ -49,5 +49,18 @@ class RichPeople extends Controller
         header("Refresh: 2; url=" . URLROOT . "/RichPeople/index");
     }
 
+    public function create()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $this->richpeopleModel->addRichPeople($_POST);
+            header('Location: ' . URLROOT . '/Richpeople/index');
+        } else {
+            $data = [
+                'title' => 'Voeg een record toe',
+            ];
+            $this->view('RichPeople/create', $data);
+        }
+    }
     
 }

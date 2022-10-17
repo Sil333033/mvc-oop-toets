@@ -1,6 +1,7 @@
 <body>
     <h3><?php echo $data['title'] ?></h3>
 
+    <a href="<?php echo URLROOT ?>/richpeople/create">voeg toe</a>
 
     <table>
         <thead>
