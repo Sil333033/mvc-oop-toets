@@ -21,6 +21,7 @@ class RichPeople extends Controller
                         <td>$value->Age</td>
                         <td>$value->MyCompany</td>
                         <td><a href='" .URLROOT . "/RichPeople/delete/$value->Id'> <img src='" . URLROOT . "/public/img/b_drop.png'> </img> </a></td>
+                        <td><a href='" .URLROOT . "/RichPeople/update/$value->Id'> update </img> </a></td>
                     </tr>";
         }
         
@@ -60,6 +61,21 @@ class RichPeople extends Controller
                 'title' => 'Voeg een record toe',
             ];
             $this->view('RichPeople/create', $data);
+        }
+    }
+
+    public function update($id = null)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $this->richpeopleModel->updateRichPeople($_POST);
+            header('Location: ' . URLROOT . '/Richpeople/index');
+        } else {
+            $data = [
+                'title' => 'Update een record',
+                'record' => $this->richpeopleModel->getRichPeopleById($id)
+            ];
+            $this->view('RichPeople/update', $data);
         }
     }
     
